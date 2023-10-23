@@ -1,0 +1,212 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{
+           
+            margin: 0; 
+            padding: 0; 
+        }
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .card .card-img-overlay {
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                padding: 2%; 
+                box-sizing: border-box; 
+            }
+
+            .card .card-img-overlay .card-title{
+                    font-size: 3vw;
+                    position: absolute;
+                    right: 5%;
+                    color: white;
+                    transition: all 0.3s;
+                    bottom: 40%
+            }
+
+            .card .card-img-overlay .card-emisor {
+                    font-size: 3vw;
+                    position: absolute;
+                    right:10%;
+                    transition: all 0.3s;
+                    bottom: 5%
+            }
+
+            .card .card-img-overlay .card-cardnumber {
+                    font-size: 3vw;
+                    position: absolute;
+                    right: 14%;
+                    transition: all 0.3s;
+                    bottom: 20%;
+                    letter-spacing:2px;
+            }
+
+            .card .card-img-overlay .card-cvv {
+                    font-size: 3vw;
+                    position: absolute;
+                    right: 40%;
+                    transition: all 0.3s;
+                    bottom: 5%
+            }
+
+        .button {
+            background-color: #007BFF;
+            color: #fff;
+            width: 20%;
+            height: 2%;
+            font-size: 100%;
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 150%;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+                background-color: #2980b9;
+                transform: scale(1.1);
+            }
+
+
+            
+        .card-img-overlay.disabled {
+                opacity: 0.2;
+        }
+
+        .estiloBoton {
+            background-color: #007BFF;
+            color: #fff;
+            width: 20%;
+            height: 2%;
+            font-size: 100%;
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+
+            .estiloBoton:hover {
+                background-color: #0056b3;
+            }
+
+        .DeleteButtom {
+            background-color: red;
+            color: #fff;
+            width: 20%;
+            height: 2%;
+            font-size: 100%;
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+
+            .DeleteButtom:hover {
+                box-shadow: inset 0 0 0 50px #E86A6A;
+            }
+        .UpdateButtom{
+            background-color: orange;
+            color: #fff;
+            width: 20%;
+            height: 2%;
+            font-size: 100%;
+            padding: 4px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .UpdateButtom:hover {
+                box-shadow: inset 0 0 0 50px #E7AC3D;
+            }
+    </style>
+</head>
+<body>
+    <h1 class="title"> Mis tarjetas </h1>
+    <br>
+    <a asp-action="CreateCard" asp-controller="Home" class="button">Agregar tarjeta</a>
+    <br>
+    <br>
+ 
+   @foreach (var card in ViewBag.Cardlist)
+    { 
+        <div class="wallet">
+            <button class="estiloBoton" id="toggleButton">Habilitar / Deshabilitar</button>
+            <form method="post" action="@Url.Action("Delete","Card")">
+                <button class="DeleteButtom" type="submit">Eliminar tarjeta</button>
+                <input type="hidden" name="Id" id="Id" value="@card.Id">
+            </form>
+            <form method="post" action="@Url.Action("UpdateCard","Home")">
+                <button class="UpdateButtom" type="submit">Editar tarjeta</button>
+                <input type="hidden" name="Id" id="Id" value="@card.Id">
+            </form>
+            <div  class="card">
+                <img src="@card.photo" class="card-img-top" alt="Foto de la tarjeta" id="cardImage">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Titular: @card.owner</h5>
+                    <p class="card-cardnumber">
+                        <span id="encryptedCardNumber">@card.cardnumber</span>
+                    </p>
+                    <p class="card-emisor">
+                        <span id="cardIssuer">@card.emisor</span>
+                    </p>
+                    <p class="card-cvv">CVV: <span id="cardIssuer">@card.cvv</span></p>
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        
+
+    }
+    
+
+    
+        <script>
+        // Inicialmente, la tarjeta está habilitada
+        var tarjetaHabilitada = true;
+
+        // Función para habilitar o deshabilitar la tarjeta
+        function toggleTarjeta() {
+            var cardImage = document.getElementById("cardImage");
+            tarjetaHabilitada = !tarjetaHabilitada; // Cambia el estado
+
+            if (tarjetaHabilitada) {
+                // Habilitar la tarjeta
+                cardImage.style.opacity = "1";
+            } else {
+                // Deshabilitar la tarjeta
+                cardImage.style.opacity = "0.6";
+            }
+        }
+
+        // Agrega un evento de clic al botón
+        var toggleButton = document.getElementById("toggleButton");
+        toggleButton.addEventListener("click", toggleTarjeta);
+    </script>
+    
+</body>
+</html>
+

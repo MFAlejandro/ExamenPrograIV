@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<html>
+<head>
+    <title>Formulario de Editar la Tarjeta</title>
+    <!-- Enlaza la hoja de estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    @foreach(var card in ViewBag.Update)
+    {
+        <div class="container">
+            <h1 class="mt-5">Editar Tarjeta</h1>
+            <form action="@Url.Action("Update","Card")" method="POST">
+                <input type="hidden" name="Id" id="Id" value="@card.Id">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Titular de la Tarjeta:</label>
+                    <input type="text" class="form-control" id="owner" name="owner" value="@card.owner" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Banco:</label>
+                    <input type="text" class="form-control" id="back" name="bank" value="@card.Bank" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Emisor:</label>
+                    <input type="text" class="form-control" id="Emisor" name="Emisor" value="@card.emisor" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Foto:</label>
+                    <input type="file" class="form-control" id="photo" name="photo" value="@card.photo" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero">Número de Tarjeta:</label>
+                    <input type="text" class="form-control" id="cardnumber" name="cardnumber" value="@card.cardnumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="vencimiento">Fecha de Vencimiento (MM/DD/YY):</label>
+                    <input type="text" class="form-control" id="duedate" name="duedate" value="@card.DueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" class="form-control" id="cvv" name="cvv" value="@card.cvv" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Tarjeta</button>
+            </form>
+        </div>
+        
+    }
+    <!-- Incluye jQuery y la biblioteca de Bootstrap (JS) si es necesario -->
+</body>
+</html>
