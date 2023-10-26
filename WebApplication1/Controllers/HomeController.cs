@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using WebApplication1.Models;
+
 
 namespace WebApplication1.Controllers
 {
@@ -22,12 +24,14 @@ namespace WebApplication1.Controllers
         }
         public List<Card> GetCards()
         {
-            //Aqui nos traemos los Resorts de SQL Server
+         
+            Card card = new Card();
             List<Card> CardList = new List<Card>();
             DataTable ds = DataBaseWebHelper.DataBaseHelper.ExecuteQuery("spGetCards", null);
-            //
 
-            //Recorremos el objeto para crear la lista de Resorts
+            DateTime? fechavencimiento = card.DueDate;
+            DateTime fechaaviso = DateTime.Today;
+            
             foreach (DataRow dr in ds.Rows)
             {
                 CardList.Add(new Card
@@ -73,6 +77,7 @@ namespace WebApplication1.Controllers
                 });
             }
             return CardList;
+
             
         }
         public IActionResult UpdateCard(int Id) 

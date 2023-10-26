@@ -28,8 +28,9 @@ namespace WebApplication1.Controllers
             DataBaseWebHelper.DataBaseHelper.ExecuteNonQuery("spCreateCard", param);
 
 
-            return null;
+            return RedirectToAction("Index","Home");
         }
+      
         [HttpPost]
         public ActionResult Update(int id, string photo, string bank, string emisor, string owner, string cardnumber, int cvv, DateTime duedate)
         {
@@ -48,7 +49,7 @@ namespace WebApplication1.Controllers
             DataBaseWebHelper.DataBaseHelper.ExecuteNonQuery("spUpdateCard", param);
 
 
-            return null;
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -61,7 +62,8 @@ namespace WebApplication1.Controllers
             };
 
             DataBaseWebHelper.DataBaseHelper.ExecuteNonQuery("spDeleteCard", param);
-            return null;
+            return RedirectToAction("Index", "Home");
         }
+
     }
 }

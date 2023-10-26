@@ -5,6 +5,7 @@ namespace WebApplication1.DataBaseWebHelper
 {
     public class DataBaseHelper
     {
+        
         const string server = "localhost";
         const string database = "VitualWallet";
         private static string connectionString = string.Format("Data Source={0};Initial Catalog={1};Integrated Security=True", server, database);
@@ -39,6 +40,7 @@ namespace WebApplication1.DataBaseWebHelper
             }
             catch
             {
+
                 throw;
             }
         }
@@ -47,6 +49,7 @@ namespace WebApplication1.DataBaseWebHelper
         //update - delete - insert
         public static void ExecuteNonQuery(string procedureName, List<SqlParameter> param)
         {
+            
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -66,10 +69,14 @@ namespace WebApplication1.DataBaseWebHelper
                     }
 
                     cmd.ExecuteNonQuery();
+                    
+                    
+                    
                 }
             }
             catch
             {
+                
                 throw;
             }
         }

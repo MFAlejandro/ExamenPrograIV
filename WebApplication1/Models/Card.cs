@@ -12,5 +12,7 @@ namespace WebApplication1.Models
         public string? cardnumber { get; set; }
         public int? cvv { get; set;}
         public DateTime? DueDate { get; set;}
+       
     }
+    
 }
